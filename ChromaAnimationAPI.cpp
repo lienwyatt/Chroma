@@ -1,5 +1,4 @@
 #include "ChromaAnimationAPI.h"
-#include "ChromaLogger.h"
 #include "VerifyLibrarySignature.h"
 #include <iostream>
 #include <tchar.h>
@@ -607,7 +606,7 @@ int ChromaAnimationAPI::InitAPI()
 	// check the library file version
 	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 1, 0, 0, 9))
 	{
-		ChromaLogger::fprintf(stderr, "Detected old version of Chroma Editor Library!\r\n");
+		std::cerr << "Detected old version of Chroma Editor Library!\r\n";
 		return RZRESULT_DLL_NOT_FOUND;
 	}
 
@@ -617,7 +616,7 @@ int ChromaAnimationAPI::InitAPI()
 
 	if (_sInvalidSignature)
 	{
-		ChromaLogger::fprintf(stderr, "Chroma Editor Library has an invalid signature!\r\n");
+		std::cerr << "Chroma Editor Library has an invalid signature!\r\n";
 		return RZRESULT_DLL_INVALID_SIGNATURE;
 	}
 
@@ -629,13 +628,12 @@ int ChromaAnimationAPI::InitAPI()
 	HMODULE library = LoadLibraryW(wFullPath);
 	if (library == NULL)
 	{ 
-		ChromaLogger::fprintf(stderr, "Failed to load Chroma Editor Library!\r\n");
+		std::cerr << "Failed to load Chroma Editor Library!\r\n";
         return RZRESULT_DLL_NOT_FOUND;
 	}
 
 	_sLibrary = library;
 	
-	//ChromaLogger::fprintf(stderr, "Loaded Chroma Editor DLL!\r\n");
 
 #pragma region API validation
 CHROMASDK_VALIDATE_METHOD(PLUGIN_ADD_COLOR, AddColor);
@@ -1183,7 +1181,6 @@ CHROMASDK_VALIDATE_METHOD(PLUGIN_USE_PRELOADING, UsePreloading);
 CHROMASDK_VALIDATE_METHOD(PLUGIN_USE_PRELOADING_NAME, UsePreloadingName);
 #pragma endregion
 
-	//ChromaLogger::printf(stdout, "Validated all DLL methods [success]\r\n");
 	_sIsInitializedAPI = true;
 	return 0;
 }

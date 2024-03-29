@@ -1,4 +1,3 @@
-#include "ChromaLogger.h"
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <iostream>
@@ -273,11 +272,11 @@ namespace ChromaSDK
 		int wideStrLength = MultiByteToWideChar(CP_UTF8, 0, filename.c_str(), -1, NULL, 0);
 		MultiByteToWideChar(CP_UTF8, 0, filename.c_str(), -1, wFileName, wideStrLength);
 
-		std::filesystem::path p = wFileName;
+		std::experimental::filesystem::path p = wFileName;
 		std::error_code pathError;
-		if (!std::filesystem::exists(p, pathError))
+		if (!std::experimental::filesystem::exists(p, pathError))
 		{
-			ChromaLogger::fprintf(stderr, "Library not found! %s\r\n", filename.c_str());
+			std::cerr <<  "Library not found!" << filename.c_str() << "\n";
 			return false;
 		}
 
@@ -305,8 +304,6 @@ namespace ChromaSDK
 							const int minor = (verInfo->dwFileVersionMS >> 0) & 0xffff;
 							const int revision = (verInfo->dwFileVersionLS >> 16) & 0xffff;
 							const int build = (verInfo->dwFileVersionLS >> 0) & 0xffff;
-
-							ChromaLogger::fwprintf(stdout, L"File Version: %d.%d.%d.%d %s\r\n", major, minor, revision, build, wFileName);
 
 							// Anything less than the min version returns false
 
