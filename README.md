@@ -1,0 +1,1 @@
+This repo was forked and adapted from the [CSDK_SampleApp](https://github.com/razerofficial/CSDK_SampleApp) for use as a submodule in my [Enigma Keyboard](https://github.com/lienwyatt/Enigma-Keyboard) project. 
