@@ -48,15 +48,15 @@ int razerInit::Init(ChromaSDK::APPINFOTYPE appInfo)
     }
     else if (result == RZRESULT_DLL_NOT_FOUND)
     {
-        fprintf(stderr, "Chroma DLL is not found! %d", result);
+        fprintf(stderr, "Chroma DLL not found. Application will run without Keyboard functionality. To add Keyboard functionality, make sure Chroma DLL is added to path and Razer Synapse 3 Chroma Connect module is installed.\n\n");
     }
     else if (result == RZRESULT_DLL_INVALID_SIGNATURE)
     {
-        fprintf(stderr, "Chroma DLL has an invalid signature! %d", result);
+        fprintf(stderr, "Chroma DLL has an invalid signature. Application will run without Keyboard functionality.\n\n", result);
     }
     else
     {
-        fprintf(stderr, "Failed to initialize Chroma! %d", result);
+        fprintf(stderr, "Failed to initialize Chroma. Application will run without Keyboard functionality.\n\n", result);
     }
 
     if (result != 0)
